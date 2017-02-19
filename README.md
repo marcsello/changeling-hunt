@@ -6,7 +6,7 @@ PropHunt plays much like a Hide and Seek. Players on the RED team, disguised as 
 .   
 .  
 .  
-Now imagine the same but with ponies as hunters and changelings as props.
+**Now imagine the same but with ponies as hunters and changelings as props.**
 
 ## Y no update? ##
 Sadly, I don't have freetime either.
