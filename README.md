@@ -1,10 +1,15 @@
-# PropHunt (Hide'n'Seek) - Original #
+# ChangelingHunt (Hide'n'Seek) - Pony Remix of PropHunt #
+
+## Original Prophunt description: ##
 PropHunt plays much like a Hide and Seek. Players on the RED team, disguised as props, are given a 30 second set up time to hide, and afterwards players on the BLUE team must find and kill them in the given time period. At the end of each round, teams are swapped: Hunters (BLUE) become the Hunted (RED) and vice versa. Respawns arn't permitted until the end of each round. 
 -Originally made for TF2 - 
+.
+.
+.
+Now imagine the same but with ponies as hunters and changelings as props.
 
-## PLEASE READ THIS - PLEASE READ THIS - PLEASE READ THIS - PLEASE READ THIS ##
-I still have issues supporting this H&S mod 'cause of my little free time, sorry! I'll do my best. 
-They might not work correctly whith this/other mod/s on the workshop or they also might not work at all, damage your PC, burn your house down with lemons or even kill your cat. (Yep, true story!) 
+## Y no update? ##
+Sadly, I don't have freetime either.
 
 ## Kown issues ##
 ATTENTION! the addons "Post Processing PLUS" and "Player Weld Tool" are incompatible and have conflicts with the "PropHunt" mod if you have the "Post Processing PLUS" and "Player Weld Tool" addons enabled you cannot play the PropHunt mod, 
@@ -13,13 +18,7 @@ to play PropHunt mod disable these addons.
 
 ## F.A.Q. ##
 Q: How do I download/subscribe/get this? 
-A: It's pretty easy, just press the BIG GREEN button, and automatically Steam will install this for you 
-
-Q: I Subscribed to Prop Hunt, Why it doesn't show in the Steam Library? 
-A: Actually It downloads automatically when you launch Garry's Mod, When it's finished downloading, You can chose the gamemode from there. 
-
-Q: I read A1, But I still did not get the addon. 
-A: Do you have garry's mod? If not, then purchase the game. 
+A: Clone the reposity, and put it into your server's addon folder.
 
 Q: Why do i need garry's mod for Prophunt to work? 
 A: Well, Actually Prophunt is a gamemode addon for Garry's Mod. 
@@ -33,8 +32,8 @@ A: You need to be in the "hiders" team, obviously. If so, place yourself in fron
 Q: How do I swap team? 
 A: Just press 'F2' 
 
-Q: How can I taunt? <-- MUST TRY! 
-A: Just press 'F3' when in prop mode. 
+Q: How can I taunt?
+A: This fork removes taunts in favour of an external addon to handle it.
 
 Q: I don't know ho this works! 
 A: Check out the discussion "Help for Newer Players." by "☾ ILikeStargates ٣٩٤#" 
@@ -50,11 +49,13 @@ A: Actually, it's still a beta in this mod, I'm trying to fix it. Now you can on
 
 ## FOUND A BUG? ##
 FIRST TRY TO DISABLE ALL PLUGINS! Check out also the incompatible plugins in the kown issues thread u.u 
-Just fill this form: {COLLEGAMENTO RIMOSSO} - If you can, please give a log. 
+If the problem still not solved, feel free to open an issue here on github
 
 ## WANT TO CONTRIBUTE? ##
-Help us to find to fix all bugs! 
-Fork our Git repo: 
+Go ahead! ^^
+
+## WANT TO CONTRIBUTE TO THE ORIGINAL PROJECT? ##
+Find more information on their page:
 https://bitbucket.org/xspacesoft/prophunt-hidenseek-original
 
 ## CREDITS: ##
@@ -62,14 +63,15 @@ Credit goes for the original authors of both gamemodes and who made Prop Hunt co
 Originally written and released by Darkimmortal (TF2) 
 Originally ported to GMod: AMT 
 Fixed for GMod 13: Leleudk 
-Enhanced an published: Me 
-Thanks also who help answering people on the page :D 
+Enhanced an published: Kowalski Konqueror
+Remixed for ponies: Marcsello
 
 If you are the autor or if you have credit, and you dont to see this mod on the Workshop anymore... just contact me 
-Tested on Windows, Mac and Ubuntu Linux. . 
+Tested on Debian Server.
 
 ## DEPENDENCIES: ##
 THIS MOD COULD REQUIRE CS:S (For some maps / elements)
+It also requires the addon "Pony Playermodel and NPC" by Pisti01 (http://steamcommunity.com/sharedfiles/filedetails/?id=107155115)
 
 ## LICENSE: ##
 This program is free software: you can redistribute it and/or modify
