@@ -26,11 +26,6 @@ USABLE_PROP_ENTITIES = {
 	"prop_physics_multiplayer"
 }
 
-
--- Send the required resources to the client
-for _, taunt in pairs(HUNTER_TAUNTS) do resource.AddFile("sound/"..taunt) end
-for _, taunt in pairs(PROP_TAUNTS) do resource.AddFile("sound/"..taunt) end
-
 -- Called alot
 function GM:CheckPlayerDeathRoundEnd()
 	if !GAMEMODE.RoundBased || !GAMEMODE:InRound() then 
@@ -69,11 +64,9 @@ hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", EntityTakeDamage)
 
 -- Called when player tries to pickup a weapon
 function GM:PlayerCanPickupWeapon(pl, ent)
- 	if pl:Team() != TEAM_HUNTERS then
-		return false
-	end
-	
-	return true
+
+ 	return pl:Team() == TEAM_HUNTERS
+
 end
 
 -- Make a variable for custom 3 combines.
@@ -85,10 +78,34 @@ local function addModel(model)
 end
 
 -- delivered from stock Gmod's player manager
+--[[ those are not poniez
 addModel("combine")
 addModel("combineprison")
 addModel("combineelite")
 addModel("police")
+]]--
+
+addModel("Trixie")
+addModel("Derpy Hooves")
+addModel("Princess Celestia")
+addModel("Princess Luna")
+addModel("Lyra")
+addModel("Rainbow Dash")
+addModel("Fluttershy")
+addModel("Pinkie Pie")
+addModel("Rarity")
+addModel("Twilight Sparkle")
+addModel("Applejack")
+addModel("Bon Bon")
+addModel("Colgate (Minuette)")
+addModel("Vinyl Scratch")
+addModel("Raindrops")
+addModel("Daring Do")
+addModel("Spitfire")
+addModel("Roseluck")
+addModel("Octavia")
+addModel("Princess Twilight")
+
 
 function GM:PlayerSetModel(pl)
 	-- set antlion gib small for Prop model. Do not change into others because this might purposed as a hitbox.
@@ -97,7 +114,7 @@ function GM:PlayerSetModel(pl)
 	-- set 3 combine models based cl_playermodel info.
 	local cl_playermodel = pl:GetInfo ( "cl_playermodel" )
 	
-	-- make it random selection
+	-- make it random selection  - this is going to be changed
 	local customModel = table.Random(playerModels)
 	cl_playermodel = customModel.model
 	
@@ -159,24 +176,6 @@ function GM:PlayerUse(pl, ent)
 	return true
 end
 
--- Called when player presses [F3]. Plays a taunt for their team
-function GM:ShowSpare1(pl)
-	if GAMEMODE:InRound() && pl:Alive() && (pl:Team() == TEAM_HUNTERS || pl:Team() == TEAM_PROPS) && pl.last_taunt_time + TAUNT_DELAY <= CurTime() && #PROP_TAUNTS > 1 && #HUNTER_TAUNTS > 1 then
-		repeat
-			if pl:Team() == TEAM_HUNTERS then
-				rand_taunt = table.Random(HUNTER_TAUNTS)
-			else
-				rand_taunt = table.Random(PROP_TAUNTS)
-			end
-		until rand_taunt != pl.last_taunt
-		
-		pl.last_taunt_time = CurTime()
-		pl.last_taunt = rand_taunt
-		
-		pl:EmitSound(rand_taunt, 100)
-	end	
-end
-
 --[[
 -- Called when the gamemode is initialized -- This does not even working since the command is blocked.
 function Initialize()
@@ -193,7 +192,7 @@ hook.Add("PlayerDisconnected", "PH_PlayerDisconnected", PlayerDisconnected)
 
 
 -- Called when the players spawns
-function PlayerSpawn(pl)
+function PlayerSpawn(pl) -- I don't want hands... I'm a pony
 
 	local oldhands = pl:GetHands()
 	if ( IsValid( oldhands ) ) then oldhands:Remove() end
