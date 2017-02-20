@@ -40,4 +40,4 @@ end
 
 
 -- Register
-player_class.Register("Prop", CLASS)
+player_class.Register("Changeling", CLASS)
