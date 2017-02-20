@@ -3,7 +3,7 @@ local CLASS = {}
 
 
 -- Some settings for the class
-CLASS.DisplayName			= "Hunter"
+CLASS.DisplayName			= "Pony"
 CLASS.WalkSpeed 			= 230
 CLASS.CrouchedWalkSpeed 	= 0.2
 CLASS.RunSpeed				= 250
