@@ -70,4 +70,4 @@ end
 
 
 -- Register
-player_class.Register("Hunter", CLASS)
+player_class.Register("Pony", CLASS)
