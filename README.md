@@ -11,6 +11,9 @@ PropHunt plays much like a Hide and Seek. Players on the RED team, disguised as 
 ## Y no update? ##
 Sadly, I don't have freetime either.
 
+## Y no tauntz? ##
+I want to use a specific addon for that purpose and also make the gamemod files smaller.
+
 ## Kown issues ##
 ATTENTION! the addons "Post Processing PLUS" and "Player Weld Tool" are incompatible and have conflicts with the "PropHunt" mod if you have the "Post Processing PLUS" and "Player Weld Tool" addons enabled you cannot play the PropHunt mod, 
 to play PropHunt mod disable these addons. 
