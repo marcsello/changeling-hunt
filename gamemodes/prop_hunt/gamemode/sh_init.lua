@@ -16,7 +16,7 @@ IncludePlayerClasses()
 
 -- Information about the gamemode
 GM.Name		= "Changeling Hunt"
-GM.Author	= "Marcsello (Original by Kow@lski (Original by AMT))"
+GM.Author	= "Marcsello (Original by Kow@lski and AMT))"
 GM.Email	= "marcsello@derpymail.org"
 GM.Website	= "https://github.com/marcsello/changeling-hunt"
 
