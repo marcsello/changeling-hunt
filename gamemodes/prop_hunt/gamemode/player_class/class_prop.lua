@@ -3,7 +3,7 @@ local CLASS = {}
 
 
 -- Some settings for the class
-CLASS.DisplayName			= "Prop"
+CLASS.DisplayName			= "Changeling"
 CLASS.WalkSpeed 			= 250
 CLASS.CrouchedWalkSpeed 	= 0.2
 CLASS.RunSpeed				= 270
