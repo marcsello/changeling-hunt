@@ -15,12 +15,12 @@ IncludePlayerClasses()
 
 
 -- Information about the gamemode
-GM.Name		= "Prop Hunt"
-GM.Author	= "Kow@lski (Original by AMT)"
-GM.Email	= "kowalski.7cc@xspacesoft.com"
-GM.Website	= "http://xspacesoft.github.io/PropHunt/"
+GM.Name		= "Changeling Hunt"
+GM.Author	= "Marcsello (Original by Kow@lski (Original by AMT))"
+GM.Email	= "marcsello@derpymail.org"
+GM.Website	= "https://github.com/marcsello/changeling-hunt"
 
--- Help info
+-- Help info // This must be changed later
 GM.Help = [[Prop Hunt is a twist on the classic backyard game Hide and Seek.
 
 As a Prop you have ]]..HUNTER_BLINDLOCK_TIME..[[ seconds to replicate an existing prop on the map and then find a good hiding spot. Press [E] to replicate the prop you are looking at. Your health is scaled based on the size of the prop you replicate.
@@ -56,12 +56,12 @@ function GM:CreateTeams()
 	end
 	
 	TEAM_HUNTERS = 1
-	team.SetUp(TEAM_HUNTERS, "Hunters", Color(150, 205, 255, 255))
+	team.SetUp(TEAM_HUNTERS, "Ponies", Color(150, 205, 255, 255))
 	team.SetSpawnPoint(TEAM_HUNTERS, {"info_player_counterterrorist", "info_player_combine", "info_player_deathmatch", "info_player_axis"})
-	team.SetClass(TEAM_HUNTERS, {"Hunter"})
+	team.SetClass(TEAM_HUNTERS, {"Pony"})
 
 	TEAM_PROPS = 2
-	team.SetUp(TEAM_PROPS, "Props", Color(255, 60, 60, 255))
+	team.SetUp(TEAM_PROPS, "Changelings", Color(255, 60, 60, 255))
 	team.SetSpawnPoint(TEAM_PROPS, {"info_player_terrorist", "info_player_rebel", "info_player_deathmatch", "info_player_allies"})
-	team.SetClass(TEAM_PROPS, {"Prop"})
+	team.SetClass(TEAM_PROPS, {"Changeling"})
 end
