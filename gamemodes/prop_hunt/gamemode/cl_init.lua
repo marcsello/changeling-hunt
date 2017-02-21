@@ -46,7 +46,7 @@ function HUDPaint()
 		if blindlock_time_left < 1 && blindlock_time_left > -6 then
 			blindlock_time_left_msg = "Ready or not, here we come!"
 		elseif blindlock_time_left > 0 then
-			blindlock_time_left_msg = "Hunters will be unblinded and released in "..string.ToMinutesSeconds(blindlock_time_left)
+			blindlock_time_left_msg = "Ponies will be unblinded and released in "..string.ToMinutesSeconds(blindlock_time_left)
 		else
 			blindlock_time_left_msg = nil
 		end
@@ -58,7 +58,7 @@ function HUDPaint()
 			draw.RoundedBox(8, 20, 20, tw + 20, 26, Color(0, 0, 0, 75))
 			draw.DrawText(blindlock_time_left_msg, "MyFont", 31, 26, Color(255, 255, 0, 255), TEXT_ALIGN_LEFT)
 		end
-	end
+	end	
 end
 hook.Add("HUDPaint", "PH_HUDPaint", HUDPaint)
 
@@ -88,12 +88,14 @@ function ResetHull(um)
 end
 usermessage.Hook("ResetHull", ResetHull)
 
--- Show hands!
+-- Don't show hands! Ponies don't have hands...
 function GM:PostDrawViewModel( vm, pl, weapon )
+	--[[
    if weapon.UseHands or (not weapon:IsScripted()) then
       local hands = LocalPlayer():GetHands()
       if IsValid(hands) then hands:DrawModel() end
    end
+   ]]
 end
 
 -- Sets the local blind variable to be used in CalcView
