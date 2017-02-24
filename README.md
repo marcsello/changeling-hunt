@@ -76,6 +76,7 @@ Tested on Debian Server.
 ## DEPENDENCIES: ##
 - THIS MOD COULD REQUIRE CS:S (For some maps / elements)
 - It also requires the addon "Pony Playermodel and NPC" by Pisti01 (http://steamcommunity.com/sharedfiles/filedetails/?id=107155115)
+- And Changeling model by Boko Chocobo (http://steamcommunity.com/sharedfiles/filedetails/?id=160877394)
 
 ## LICENSE: ##
 This program is free software: you can redistribute it and/or modify
