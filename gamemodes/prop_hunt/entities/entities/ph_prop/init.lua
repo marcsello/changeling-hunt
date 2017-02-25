@@ -9,7 +9,8 @@ include("shared.lua")
 
 -- Called when the entity initializes
 function ENT:Initialize()
-	self:SetModel("models/player/Kleiner.mdl")
+	-- self:SetModel("models/player/Kleiner.mdl")
+	self:SetModel("models/player/mlp/changeling_player_colorable.mdl")
 	self.health = 100
 end 
 
