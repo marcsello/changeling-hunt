@@ -35,7 +35,7 @@ function GM:CheckPlayerDeathRoundEnd()
 	local Teams = GAMEMODE:GetTeamAliveCounts()
 
 	if table.Count(Teams) == 0 then
-		GAMEMODE:RoundEndWithResult(1001, "Draw, everyone loses!")
+		GAMEMODE:RoundEndWithResult(1001, "Draw, everypony loses!")
 		return
 	end
 
@@ -108,27 +108,19 @@ addModel("Princess Twilight")
 
 
 function GM:PlayerSetModel(pl)
+
 	-- set antlion gib small for Prop model. Do not change into others because this might purposed as a hitbox.
 	local player_model = "models/Gibs/Antlion_gib_small_3.mdl"
+	
+	-- Hunters have their models selected by the method in PreRoundStart (To avoid duplications)
+	if pl:Team() == TEAM_HUNTERS then
+		player_model = player_manager.TranslatePlayerModel( pl.pony_playermodel )
+	end
 
-	-- set 3 combine models based cl_playermodel info.
-	local cl_playermodel = pl:GetInfo ( "cl_playermodel" )
-	
-	-- make it random selection  - this is going to be changed
-	local customModel = table.Random(playerModels)
-	cl_playermodel = customModel.model
-	
-	-- translate it
-	local modelname = player_manager.TranslatePlayerModel( cl_playermodel )
-	
-	-- for Hunter only
-    if pl:Team() == TEAM_HUNTERS then
-				player_model = modelname
-    end
-	
 	-- Precache it
 	util.PrecacheModel(player_model)
 	pl:SetModel(player_model)
+
 end
 	
 -- Called when a player tries to use an object
@@ -192,34 +184,11 @@ hook.Add("PlayerDisconnected", "PH_PlayerDisconnected", PlayerDisconnected)
 
 
 -- Called when the players spawns
-function PlayerSpawn(pl) -- I don't want hands... I'm a pony
+function PlayerSpawn(pl) 
 
-	local oldhands = pl:GetHands()
-	if ( IsValid( oldhands ) ) then oldhands:Remove() end
 
-	local hands = ents.Create( "gmod_hands" )
-	if ( IsValid( hands ) ) then
-		pl:SetHands( hands )
-		hands:SetOwner( pl )
-
-		-- Which hands should we use?
-		local cl_playermodel = pl:GetInfo( "cl_playermodel" )
-		local info = player_manager.TranslatePlayerHands( cl_playermodel )
-		if ( info ) then
-			hands:SetModel( info.model )
-			hands:SetSkin( info.skin )
-			hands:SetBodyGroups( info.body )
-		end
-
-		-- Attach them to the viewmodel
-		local vm = pl:GetViewModel( 0 )
-		hands:AttachToViewmodel( vm )
-
-		vm:DeleteOnRemove( hands )
-		pl:DeleteOnRemove( hands )
-
-		hands:Spawn()
- 	end
+	local hands = pl:GetHands() -- I don't want hands... I'm a pony
+	if ( IsValid( hands ) ) then oldhands:Remove() end
 
 	pl:Blind(false)
 	pl:RemoveProp()
@@ -270,11 +239,14 @@ function GM:RoundTimerEnd()
 end
 
 
--- Called before start of round
+-- Called before start of round (and b4 players getting their models)
 function GM:OnPreRoundStart(num)
+
+	-- do some game stuff
 	game.CleanUpMap()
 	
-		if GetGlobalInt("RoundNumber") != 1 && (SWAP_TEAMS_EVERY_ROUND == 1 || ((team.GetScore(TEAM_PROPS) + team.GetScore(TEAM_HUNTERS)) > 0 || SWAP_TEAMS_POINTS_ZERO==1)) then
+	-- SWAP teams if needed
+	if GetGlobalInt("RoundNumber") != 1 && (SWAP_TEAMS_EVERY_ROUND == 1 || ((team.GetScore(TEAM_PROPS) + team.GetScore(TEAM_HUNTERS)) > 0 || SWAP_TEAMS_POINTS_ZERO==1)) then
 		for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_PROPS || pl:Team() == TEAM_HUNTERS then
 				if pl:Team() == TEAM_PROPS then
@@ -289,6 +261,23 @@ function GM:OnPreRoundStart(num)
 		end
 	end
 	
+	-- Generate playermodel list
+	local clist = {}
+	for _, pl in pairs(player.GetAll()) do 
+		if pl:Team() == TEAM_HUNTERS then
+		
+			if #clist == 0 then -- this is actually a very slow way to make sure everypony is unique
+				clist = table.Copy(playerModels)
+			end
+			
+			local pony_playermodel_cid = math.random( #clist )
+			pl.pony_playermodel = clist[pony_playermodel_cid].model
+			table.remove( clist, pony_playermodel_cid )
+		
+		end
+	end
+	
+	-- Do some other game stuff
 	UTIL_StripAllPlayers()
 	UTIL_SpawnAllPlayers()
 	UTIL_FreezeAllPlayers()
