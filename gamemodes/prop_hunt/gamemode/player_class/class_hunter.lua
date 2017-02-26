@@ -40,15 +40,21 @@ function CLASS:OnSpawn(pl)
 	
 	local unblindfunc = function()
 		--MyUnblindFunc(pl.Blind(false))
-		pl:Blind(false)
+		if pl != NULL then
+			pl:Blind(false)
+		end
 	end
 	local lockfunc = function()
 		--MyLockFunc(pl.Lock())
-		pl.Lock(pl)
+		if pl != NULL then
+			pl.Lock(pl)
+		end
 	end
 	local unlockfunc = function()
 		--MyUnlockFunc(pl.UnLock())
-		pl.UnLock(pl)
+		if pl != NULL then
+			pl.UnLock(pl)
+		end
 	end
 	
 	if unlock_time > 2 then
