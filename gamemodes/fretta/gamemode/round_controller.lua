@@ -100,7 +100,7 @@ function GM:PreRoundStart( iNum )
 
 	// Should the game end?
 	if( CurTime() >= GAMEMODE.GetTimeLimit() || GAMEMODE:HasReachedRoundLimit( iNum ) ) then
-		GAMEMODE:EndOfGame( true );
+		GAMEMODE:EndOfGame( fretta_voting:GetBool() );
 		return;
 	end
 	
