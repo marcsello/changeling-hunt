@@ -70,7 +70,7 @@ function GM:Think()
 
 	// Game time related
 	if( !GAMEMODE.IsEndOfGame && ( !GAMEMODE.RoundBased || ( GAMEMODE.RoundBased && GAMEMODE:CanEndRoundBasedGame() ) ) && CurTime() >= GAMEMODE.GetTimeLimit() ) then
-		GAMEMODE:EndOfGame( true )
+		GAMEMODE:EndOfGame( fretta_voting:GetBool() )
 	end
 	
 end
@@ -491,6 +491,8 @@ function GM:EndOfGame( bGamemodeVote )
 		timer.Simple( GAMEMODE.VotingDelay, function() GAMEMODE:StartGamemodeVote() end )
 		
 	end
+	
+
 
 end
 
