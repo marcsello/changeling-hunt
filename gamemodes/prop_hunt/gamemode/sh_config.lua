@@ -36,22 +36,3 @@ ROUND_TIME = 300
 
 -- Determains if players should be team swapped every round [0 = No, 1 = Yes] (Default: 1)
 SWAP_TEAMS_EVERY_ROUND = 1
-
--- If you loose one of these will be played
--- Set blank to disable
-
--- // DEV HELP: why this is  not working anymore? \\ --
-LOSS_SOUNDS = {
-	"vo/announcer_failure.wav",
-	"vo/announcer_you_failed.wav"
-}
-
--- If you win, one of these will be played
--- Set blank to disable
-
--- // DEV HELP: why this is  not working anymore? \\ --
-VICTORY_SOUNDS = {
-	"vo/announcer_success.wav",
-	"vo/announcer_victory.wav",
-	"vo/announcer_we_succeeded.wav"
-}
