@@ -27,7 +27,7 @@ As a Prop you have ]]..HUNTER_BLINDLOCK_TIME..[[ seconds to replicate an existin
 
 As a Hunter you will be blindfolded for the first ]]..HUNTER_BLINDLOCK_TIME..[[ seconds of the round while the Props hide. When your blindfold is taken off, you will need to find props controlled by players and kill them. Damaging non-player props will lower your health significantly. However, killing a Prop will increase your health by ]]..HUNTER_KILL_BONUS..[[ points.
 
-Both teams can press [F3] to play a taunt sound.]]
+Now imagine the same, but with ponies! How awesome is that?]]
 
 
 -- Fretta configuration
@@ -47,6 +47,11 @@ GM.RoundPreStartTime		= 0
 GM.SelectModel				= false
 GM.SuicideString			= "suicided or died mysteriously."
 GM.TeamBased 				= true
+GM.AllowAutoTeam			= true
+-- GM.PlayerCanNoClip			= false -- it might mess with ulx
+GM.RoundPostLength			= 5
+GM.RoundEndsWhenOneTeamAlive = true
+
 
 
 -- Called on gamemdoe initialization to create teams

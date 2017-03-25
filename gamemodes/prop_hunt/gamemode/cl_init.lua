@@ -80,13 +80,13 @@ hook.Add("Initialize", "PH_Initialize", Initialize)
 
 
 -- Resets the player hull
-function ResetHull(um)
+function ResetHull( len )
 	if LocalPlayer() && LocalPlayer():IsValid() then
 		LocalPlayer():ResetHull()
 		hullz = 80
 	end
 end
-usermessage.Hook("ResetHull", ResetHull)
+net.Receive("ResetHull", ResetHull)
 
 -- Don't show hands! Ponies don't have hands...
 function GM:PostDrawViewModel( vm, pl, weapon )
@@ -99,20 +99,20 @@ function GM:PostDrawViewModel( vm, pl, weapon )
 end
 
 -- Sets the local blind variable to be used in CalcView
-function SetBlind(um)
-	blind = um:ReadBool()
+function SetBlind( len )
+	blind = net.ReadBool()
 end
-usermessage.Hook("SetBlind", SetBlind)
+net.Receive("SetBlind", SetBlind)
 
 
 -- Sets the player hull
-function SetHull(um)
-	hullxy = um:ReadLong()
-	hullz = um:ReadLong()
-	new_health = um:ReadLong()
+function SetHull( len )
+	hullxy = net.ReadInt(32)
+	hullz = net.ReadInt(32)
+	new_health = net.ReadInt(16)
 	
 	LocalPlayer():SetHull(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
 	LocalPlayer():SetHullDuck(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
 	LocalPlayer():SetHealth(new_health)
 end
-usermessage.Hook("SetHull", SetHull)
+net.Receive("SetHull", SetHull)

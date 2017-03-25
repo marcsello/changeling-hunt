@@ -8,13 +8,13 @@ function meta:Blind(bool)
 	if !self:IsValid() then return end
 	
 	if SERVER then
-		umsg.Start("SetBlind", self)
+		net.Start("SetBlind")
 		if bool then
-			umsg.Bool(true)
+			net.WriteBool(true)
 		else
-			umsg.Bool(false)
+			net.WriteBool(false)
 		end
-		umsg.End()
+		net.Send(self)
 	elseif CLIENT then
 		blind = bool
 	end

@@ -5,6 +5,10 @@ AddCSLuaFile("sh_init.lua")
 AddCSLuaFile("sh_player.lua")
 
 
+util.AddNetworkString( "SetHull" )
+util.AddNetworkString( "ResetHull" )
+util.AddNetworkString( "SetBlind" )
+
 -- If there is a mapfile send it to the client (sometimes servers want to change settings for certain maps)
 if file.Exists("../gamemodes/prop_hunt/gamemode/maps/"..game.GetMap()..".lua", "LUA") then
 	AddCSLuaFile("maps/"..game.GetMap()..".lua")
@@ -151,11 +155,11 @@ function GM:PlayerUse(pl, ent)
 			pl:SetHullDuck(Vector(hullxymin, hullxymin, 0), Vector(hullxymax, hullxymax, hullz))
 			pl:SetHealth(new_health)
 			
-			umsg.Start("SetHull", pl)
-				umsg.Long(hullxymax)
-				umsg.Long(hullz)
-				umsg.Short(new_health)
-			umsg.End()
+			net.Start("SetHull")
+				net.WriteInt(hullxymax,32)
+				net.WriteInt(hullz,32)
+				net.WriteInt(new_health,16)
+			net.Send(pl)
 		end
 	end
 	
@@ -188,7 +192,7 @@ function PlayerSpawn(pl)
 
 
 	local hands = pl:GetHands() -- I don't want hands... I'm a pony
-	if ( IsValid( hands ) ) then oldhands:Remove() end
+	if ( IsValid( hands ) ) then hands:Remove() end
 
 	pl:Blind(false)
 	pl:RemoveProp()
@@ -198,8 +202,8 @@ function PlayerSpawn(pl)
 	pl:ResetHull()
 	pl.last_taunt_time = 0
 	
-	umsg.Start("ResetHull", pl)
-	umsg.End()
+	net.Start("ResetHull")
+	net.Send(pl)
 	
 	pl:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
 end
@@ -281,4 +285,16 @@ function GM:OnPreRoundStart(num)
 	UTIL_StripAllPlayers()
 	UTIL_SpawnAllPlayers()
 	UTIL_FreezeAllPlayers()
+end
+
+
+-- We have our own badass roundend stuff
+function GM:OnEndOfGame(bGamemodeVote)
+
+	for k,v in pairs( player.GetAll() ) do
+
+		v:Freeze(true)
+		-- We don't want to show the scoreboard
+	end
+	
 end
