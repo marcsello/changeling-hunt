@@ -5,7 +5,7 @@ if !meta then return end
 
 -- Blinds the player by setting view out into the void
 function meta:Blind(bool)
-	if !self:IsValid() then return end
+	if !IsValid( self ) then return end
 	
 	if SERVER then
 		net.Start("SetBlind")
@@ -21,7 +21,6 @@ function meta:Blind(bool)
 end
 
 
--- Blinds the player by setting view out into the void
 function meta:RemoveProp()
 	if CLIENT || !self:IsValid() then return end
 	

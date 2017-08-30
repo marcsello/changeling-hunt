@@ -32,39 +32,20 @@ end
 
 
 -- Called when player spawns with this class
+-- This player spawns frozen if there is more than 2 secs left from the unlock time (This is only useful when the player joins DURING a game)
+-- The server handle unlocking in the OnRoundStart function
 function CLASS:OnSpawn(pl)
-	local unlock_time = math.Clamp(HUNTER_BLINDLOCK_TIME - (CurTime() - GetGlobalFloat("RoundStartTime", 0)), 0, HUNTER_BLINDLOCK_TIME)
+	local round_timer = (CurTime() - GetGlobalFloat("RoundStartTime", 0))
 	
-	--function MyLockFunc()
-	--function MyUnlockFunc()
+	if round_timer < -2 then  // more than 2 secs remaining, that's a workaround...
 	
-	local unblindfunc = function()
-		--MyUnblindFunc(pl.Blind(false))
-		if IsValid(pl) then
-			pl:Blind(false)
-		end
-	end
-	local lockfunc = function()
-		--MyLockFunc(pl.Lock())
-		if IsValid(pl) then
-			pl.Lock(pl)
-		end
-	end
-	local unlockfunc = function()
-		--MyUnlockFunc(pl.UnLock())
-		if IsValid(pl) then
-			pl.UnLock(pl)
-		end
-	end
-	
-	if unlock_time > 2 then
 		pl:Blind(true)
-		
-		timer.Simple(unlock_time, unblindfunc)
-		
-		timer.Simple(2, lockfunc)
-		timer.Simple(unlock_time, unlockfunc)
+		timer.Simple(2, function()
+			pl.Lock(pl)
+		end )
+	
 	end
+	
 end
 
 

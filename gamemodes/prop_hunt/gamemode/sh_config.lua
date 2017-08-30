@@ -31,7 +31,7 @@ ROUNDS_PER_MAP = 10
 
 
 -- Time (in seconds) for each round (Default: 300)
-ROUND_TIME = 300
+ROUND_TIME = 270
 
 
 -- Determains if players should be team swapped every round [0 = No, 1 = Yes] (Default: 1)

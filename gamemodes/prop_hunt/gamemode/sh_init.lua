@@ -16,7 +16,7 @@ IncludePlayerClasses()
 
 -- Information about the gamemode
 GM.Name		= "Changeling Hunt"
-GM.Author	= "Marcsello (Original by Kow@lski and AMT))"
+GM.Author	= "Marcsello (Original by Kow@lski and AMT)"
 GM.Email	= "marcsello@derpymail.org"
 GM.Website	= "https://github.com/marcsello/changeling-hunt"
 
@@ -43,7 +43,7 @@ GM.NoPlayerPlayerDamage 	= true
 GM.RoundBased				= true
 GM.RoundLimit				= ROUNDS_PER_MAP
 GM.RoundLength 				= ROUND_TIME
-GM.RoundPreStartTime		= 0
+GM.RoundPreStartTime		= HUNTER_BLINDLOCK_TIME
 GM.SelectModel				= false
 GM.SuicideString			= "suicided or died mysteriously."
 GM.TeamBased 				= true

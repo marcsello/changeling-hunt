@@ -37,28 +37,17 @@ function GM:CalcView(pl, origin, angles, fov)
  	return view 
 end
 
-
--- Draw round timeleft and hunter release timeleft
+-- This is a work around... we draw a big black rectangle on the screen, because viewport based blinding is a bit unrealible (but better)
 function HUDPaint()
-	if GetGlobalBool("InRound", false) then
-		local blindlock_time_left = (HUNTER_BLINDLOCK_TIME - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+
+	if blind then
 		
-		if blindlock_time_left < 1 && blindlock_time_left > -6 then
-			blindlock_time_left_msg = "Ready or not, here we come!"
-		elseif blindlock_time_left > 0 then
-			blindlock_time_left_msg = "Ponies will be unblinded and released in "..string.ToMinutesSeconds(blindlock_time_left)
-		else
-			blindlock_time_left_msg = nil
-		end
-		
-		if blindlock_time_left_msg then
-			surface.SetFont("MyFont")
-			local tw, th = surface.GetTextSize(blindlock_time_left_msg)
-			
-			draw.RoundedBox(8, 20, 20, tw + 20, 26, Color(0, 0, 0, 75))
-			draw.DrawText(blindlock_time_left_msg, "MyFont", 31, 26, Color(255, 255, 0, 255), TEXT_ALIGN_LEFT)
-		end
-	end	
+		surface.SetDrawColor(0,0,0,255)
+		surface.DrawRect(0,0,ScrW(),ScrH())
+	
+	end
+
+
 end
 hook.Add("HUDPaint", "PH_HUDPaint", HUDPaint)
 
@@ -66,15 +55,6 @@ hook.Add("HUDPaint", "PH_HUDPaint", HUDPaint)
 -- Called immediately after starting the gamemode 
 function Initialize()
 	hullz = 80
-	--surface.CreateFont("Arial", 14, 1200, true, false, "ph_arial")
-	surface.CreateFont( "MyFont",
-	{
-		font	= "Arial",
-		size	= 14,
-		weight	= 1200,
-		antialias = true,
-		underline = false
-	})
 end
 hook.Add("Initialize", "PH_Initialize", Initialize)
 

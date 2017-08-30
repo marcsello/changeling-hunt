@@ -223,12 +223,28 @@ end
 hook.Add("InitPostEntity", "PH_RemoveWeaponsAndItems", RemoveWeaponsAndItems)
 
 
--- Called when round ends
-function RoundEnd()
+function release_hunters() 
+
 	for _, pl in pairs(team.GetPlayers(TEAM_HUNTERS)) do
 		pl:Blind(false)
-		pl:UnLock()
+		pl:Freeze(false)
+		pl:UnLock() // lock happens after spawn
 	end
+
+end
+
+function lock_hunters()
+
+	for _, pl in pairs(team.GetPlayers(TEAM_HUNTERS)) do
+		pl:Blind(true)
+		pl:Freeze(true)
+	end
+
+end
+
+-- Called when round ends
+function RoundEnd()
+	release_hunters() // round ends during the freeze time
 end
 hook.Add("RoundEnd", "PH_RoundEnd", RoundEnd)
 
@@ -243,13 +259,20 @@ function GM:RoundTimerEnd()
 end
 
 
+function GM:OnRoundStart( num )
+
+	release_hunters()
+
+end 
+
+
 -- Called before start of round (and b4 players getting their models)
 function GM:OnPreRoundStart(num)
 
 	-- do some game stuff
 	game.CleanUpMap()
 	
-	-- SWAP teams if needed
+	-- Swap teams if needed
 	if GetGlobalInt("RoundNumber") != 1 && (SWAP_TEAMS_EVERY_ROUND == 1 || ((team.GetScore(TEAM_PROPS) + team.GetScore(TEAM_HUNTERS)) > 0 || SWAP_TEAMS_POINTS_ZERO==1)) then
 		for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_PROPS || pl:Team() == TEAM_HUNTERS then
@@ -283,8 +306,16 @@ function GM:OnPreRoundStart(num)
 	
 	-- Do some other game stuff
 	UTIL_StripAllPlayers()
-	UTIL_SpawnAllPlayers()
-	UTIL_FreezeAllPlayers()
+	UTIL_SpawnAllPlayers()	
+	
+	lock_hunters()
+	
+	-- release changelings for the pre-game
+	for _, pl in pairs(team.GetPlayers(TEAM_PROPS)) do
+		pl:UnLock() // this removes the freeze as well
+	end
+
+	
 end
 
 
@@ -293,7 +324,7 @@ function GM:OnEndOfGame(bGamemodeVote)
 
 	for k,v in pairs( player.GetAll() ) do
 
-		v:Freeze(true)
+		v:Lock(true) // Lock > Freeze
 		-- We don't want to show the scoreboard
 	end
 	
