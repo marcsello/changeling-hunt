@@ -244,7 +244,7 @@ end
 
 -- Called when round ends
 function RoundEnd()
-	release_hunters() // round ends during the freeze time
+	release_hunters() -- round ends during the freeze time
 end
 hook.Add("RoundEnd", "PH_RoundEnd", RoundEnd)
 
@@ -257,6 +257,12 @@ function GM:RoundTimerEnd()
    
 	GAMEMODE:RoundEndWithResult(TEAM_PROPS, "Changelings win!")
 end
+
+
+function GM:CanStartRound( iNum ) -- We only want to start the round, when players joined (prevent game starting from the second round)
+	return (#team.GetPlayers(TEAM_PROPS) > 0) && (#team.GetPlayers(TEAM_HUNTERS) > 0)
+end
+
 
 
 function GM:OnRoundStart( num )
