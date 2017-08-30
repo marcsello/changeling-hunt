@@ -1,9 +1,25 @@
 
-function GM:SetRoundWinner( ply, resulttext ) SetGlobalEntity( "RoundWinner", ply ) SetGlobalString( "RRText", tostring(resulttext) ) end
-function GM:SetRoundResult( i, resulttext ) SetGlobalInt( "RoundResult", i ) SetGlobalString( "RRText", tostring(resulttext) ) end
-function GM:ClearRoundResult() SetGlobalEntity( "RoundWinner", NULL ) SetGlobalInt( "RoundResult", 0 ) SetGlobalString( "RRText", "" ) end
-function GM:SetInRound( b ) SetGlobalBool( "InRound", b ) end
-function GM:InRound() return GetGlobalBool( "InRound", false ) end
+function GM:SetRoundWinner( ply, resulttext ) 
+ SetGlobalEntity( "RoundWinner", ply ) SetGlobalString( "RRText", tostring(resulttext) ) 
+end
+
+function GM:SetRoundResult( i, resulttext )
+ SetGlobalInt( "RoundResult", i ) SetGlobalString( "RRText", tostring(resulttext) ) 
+end
+
+function GM:ClearRoundResult()
+ SetGlobalEntity( "RoundWinner", NULL )
+ SetGlobalInt( "RoundResult", 0 )
+ SetGlobalString( "RRText", "" ) 
+end
+ 
+function GM:SetInRound( b ) 
+ SetGlobalBool( "InRound", b ) 
+end
+
+function GM:InRound() 
+ return GetGlobalBool( "InRound", false )
+end
 
 function GM:OnRoundStart( num )
 
@@ -111,7 +127,11 @@ function GM:PreRoundStart( iNum )
 		
 	end
 
-	timer.Simple( GAMEMODE.RoundPreStartTime, function() GAMEMODE:RoundStart() end )
+	
+	
+	timer.Remove("FRETTA_PRE_ROUND_START_TIMER") // Avoiding round to start twice (the next round starts before the the one before started, so this will call the the round start twice)
+	timer.Create("FRETTA_PRE_ROUND_START_TIMER" , GAMEMODE.RoundPreStartTime, 1, function() GAMEMODE:RoundStart() end )
+	
 	SetGlobalInt( "RoundNumber", iNum )
 	SetGlobalFloat( "RoundStartTime", CurTime() + GAMEMODE.RoundPreStartTime )
 	
@@ -180,6 +200,7 @@ end
 //
 function GM:RoundEnd()
 
+
 	if ( !GAMEMODE:InRound() ) then 
 		// if someone uses RoundEnd incorrectly then do a trace.
 		MsgN("WARNING: RoundEnd being called while gamemode not in round...")
@@ -191,9 +212,11 @@ function GM:RoundEnd()
 
 	self:SetInRound( false )
 	
-	timer.Destroy( "RoundEndTimer" )
-	timer.Destroy( "CheckRoundEnd" )
+	timer.Remove( "RoundEndTimer" )
+	timer.Remove( "CheckRoundEnd" )
 	SetGlobalFloat( "RoundEndTime", -1 )
+	
+	timer.Remove("FRETTA_PRE_ROUND_START_TIMER") // prevent round start event, if everyone suddenly dies or something just seconds before the actual map start
 	
 	timer.Simple( GAMEMODE.RoundPostLength, function() GAMEMODE:PreRoundStart( GetGlobalInt( "RoundNumber" )+1 ) end )
 	
