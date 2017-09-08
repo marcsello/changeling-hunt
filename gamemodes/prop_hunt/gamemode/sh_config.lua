@@ -15,7 +15,8 @@ GAME_TIME = 30
 
 
 -- Number of seconds hunters are blinded/locked at the beginning of the map (Default: 30)
-HUNTER_BLINDLOCK_TIME = 30
+--HUNTER_BLINDLOCK_TIME = 30
+HUNTER_BLINDLOCK_TIME = 10
 
 
 -- Health points removed from hunters when they shoot  (Default: 25)
@@ -31,7 +32,8 @@ ROUNDS_PER_MAP = 10
 
 
 -- Time (in seconds) for each round (Default: 300)
-ROUND_TIME = 270
+--ROUND_TIME = 270
+ROUND_TIME = 20
 
 
 -- Determains if players should be team swapped every round [0 = No, 1 = Yes] (Default: 1)

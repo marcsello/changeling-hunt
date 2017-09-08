@@ -1,4 +1,3 @@
-
 local hudScreen = nil
 local Alive = false
 local Class = nil
@@ -63,17 +62,23 @@ function GM:RefreshHUD()
 	
 	if ( InVote ) then return end
 	
+	--[[
 	if ( RoundWinner and RoundWinner != NULL ) then
 		GAMEMODE:UpdateHUD_RoundResult( RoundWinner, Alive )
 	elseif ( RoundResult != 0 ) then
 		GAMEMODE:UpdateHUD_RoundResult( RoundResult, Alive )
-	elseif ( IsObserver ) then
+	else
+	]]
+	
+	if ( RoundWinner and RoundWinner != NULL ) or (RoundResult != 0) then return end
+	
+	if ( IsObserver ) then
 		GAMEMODE:UpdateHUD_Observer( WaitingToRespawn, InRound, ObserveMode, ObserveTarget )
 	elseif ( !Alive ) then
 		GAMEMODE:UpdateHUD_Dead( WaitingToRespawn, InRound )
 	else
 		GAMEMODE:UpdateHUD_Alive( InRound )
-	end
+	end 
 	
 end
 
@@ -85,6 +90,7 @@ function GM:HUDPaint()
 	GAMEMODE:RefreshHUD()
 	
 end
+
 
 function GM:UpdateHUD_RoundResult( RoundResult, Alive )
 
@@ -103,6 +109,7 @@ function GM:UpdateHUD_RoundResult( RoundResult, Alive )
 	GAMEMODE:AddHUDItem( RespawnText, 8 )
 
 end
+
 
 function GM:UpdateHUD_Observer( bWaitingToSpawn, InRound, ObserveMode, ObserveTarget )
 
@@ -228,4 +235,11 @@ end
 function GM:UpdateHUD_AddedTime( iTimeAdded )
 	// to do or to override, your choice
 end
-net.Receive( "RoundAddedTime", function( length ) if ( GAMEMODE ) then GAMEMODE:UpdateHUD_AddedTime( net.ReadFloat() ) end end )
+
+net.Receive( "RoundAddedTime", function( length )
+
+ if ( GAMEMODE ) then 
+	GAMEMODE:UpdateHUD_AddedTime( net.ReadFloat() )
+ end 
+ 
+end )

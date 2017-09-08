@@ -3,11 +3,13 @@ AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("sh_config.lua")
 AddCSLuaFile("sh_init.lua")
 AddCSLuaFile("sh_player.lua")
-
+AddCSLuaFile("cl_round_end.lua")
 
 util.AddNetworkString( "SetHull" )
 util.AddNetworkString( "ResetHull" )
 util.AddNetworkString( "SetBlind" )
+
+util.AddNetworkString( "PH_RoundOverWithWinner" ) -- used for round ending things, since it's not clearly solved how this is broadcasted
 
 -- If there is a mapfile send it to the client (sometimes servers want to change settings for certain maps)
 if file.Exists("../gamemodes/prop_hunt/gamemode/maps/"..game.GetMap()..".lua", "LUA") then
@@ -243,10 +245,20 @@ function lock_hunters()
 end
 
 -- Called when round ends
-function RoundEnd()
+function GM:OnRoundEnd( num, winner )
+
+
+	if (winner != nil) and (type(winner) == "number") then
+	
+		net.Start("PH_RoundOverWithWinner")
+			net.WriteInt(winner,8)
+		net.Broadcast()
+	
+	end
+
 	release_hunters() -- round ends during the freeze time
+	
 end
-hook.Add("RoundEnd", "PH_RoundEnd", RoundEnd)
 
 
 -- This is called when the round time ends (props win)
@@ -255,7 +267,7 @@ function GM:RoundTimerEnd()
 		return
 	end
    
-	GAMEMODE:RoundEndWithResult(TEAM_PROPS, "Changelings win!")
+	GAMEMODE:RoundEndWithResult(TEAM_PROPS)
 end
 
 

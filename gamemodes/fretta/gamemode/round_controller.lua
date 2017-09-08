@@ -27,7 +27,7 @@ function GM:OnRoundStart( num )
 
 end
 
-function GM:OnRoundEnd( num )
+function GM:OnRoundEnd( num, result )
 end
 
 function GM:OnRoundResult( result, resulttext )
@@ -182,13 +182,13 @@ function GM:RoundEndWithResult( result, resulttext )
 	if type( result ) == "number" then // the result is a team ID
 
 		GAMEMODE:SetRoundResult( result, resulttext )
-		GAMEMODE:RoundEnd()
+		GAMEMODE:RoundEnd( result )
 		GAMEMODE:OnRoundResult( result, resulttext )
 		
 	else // the result is a player
 	
 		GAMEMODE:SetRoundWinner( result, resulttext )
-		GAMEMODE:RoundEnd()
+		GAMEMODE:RoundEnd( result )
 		GAMEMODE:OnRoundWinner( result, resulttext )
 	
 	end
@@ -198,7 +198,7 @@ end
 //
 // Internal, override OnRoundEnd if you want to do stuff here
 //
-function GM:RoundEnd()
+function GM:RoundEnd( result )
 
 
 	if ( !GAMEMODE:InRound() ) then 
@@ -208,7 +208,7 @@ function GM:RoundEnd()
 		return 
 	end
 	
-	GAMEMODE:OnRoundEnd( GetGlobalInt( "RoundNumber" ) )
+	GAMEMODE:OnRoundEnd( GetGlobalInt( "RoundNumber" ), result )
 
 	self:SetInRound( false )
 	

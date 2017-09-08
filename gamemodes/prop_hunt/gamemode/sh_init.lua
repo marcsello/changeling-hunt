@@ -49,7 +49,7 @@ GM.SuicideString			= "suicided or died mysteriously."
 GM.TeamBased 				= true
 GM.AllowAutoTeam			= true
 -- GM.PlayerCanNoClip			= false -- it might mess with ulx
-GM.RoundPostLength			= 5
+GM.RoundPostLength			= 12
 GM.RoundEndsWhenOneTeamAlive = true
 
 

@@ -48,6 +48,12 @@ function HUDPaint()
 	end
 
 
+	
+	
+	
+	
+	
+	
 end
 hook.Add("HUDPaint", "PH_HUDPaint", HUDPaint)
 
@@ -79,14 +85,14 @@ function GM:PostDrawViewModel( vm, pl, weapon )
 end
 
 -- Sets the local blind variable to be used in CalcView
-function SetBlind( len )
+net.Receive("SetBlind", function ( len )
 	blind = net.ReadBool()
-end
-net.Receive("SetBlind", SetBlind)
+end )
+ 
 
 
 -- Sets the player hull
-function SetHull( len )
+net.Receive("SetHull", function ( len )
 	hullxy = net.ReadInt(32)
 	hullz = net.ReadInt(32)
 	new_health = net.ReadInt(16)
@@ -94,5 +100,7 @@ function SetHull( len )
 	LocalPlayer():SetHull(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
 	LocalPlayer():SetHullDuck(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
 	LocalPlayer():SetHealth(new_health)
-end
-net.Receive("SetHull", SetHull)
+end )
+
+-- Stuff happens after round ends, like showing the logo, and playing music, and such
+include("cl_round_end.lua")
